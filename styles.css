@@ -621,7 +621,7 @@ h1,h2,h3,h4{
 }
 .footer-logos{ display:flex; align-items:center; gap:18px; }
 .footer-logos img{ height:30px; width:auto; }
-.footer-logos img.tu{ height:38px; filter: grayscale(1) brightness(2.2); opacity:.85;}
+.footer-logos img.tu{ height:38px; }
 .footer-divider{ width:1px; height:28px; background: rgba(243,238,228,0.25); }
 .footer-tagline{
   font-family: var(--display);
