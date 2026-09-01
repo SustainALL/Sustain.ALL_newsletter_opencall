@@ -2,6 +2,11 @@
 // SUSTAIN.ALL — project data & interactivity
 // ============================================================
 
+// Paste the Google Apps Script "Web app" URL here (ends in /exec).
+// See README.md for how to set this up — until this is filled in,
+// the form will show an error instead of submitting anywhere.
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
 const STAGES = ["Concept", "Pre-Prototype", "Prototype", "Pre-Pilot", "Pilot"];
 
 const PROJECTS = [
@@ -241,15 +246,43 @@ document.addEventListener("DOMContentLoaded", () => {
   navToggle.addEventListener("click", () => nav.classList.toggle("open"));
   nav.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
 
-  // form success (Netlify handles the actual POST; this is a light in-page confirmation
-  // for users who don't navigate away — Netlify's own redirect/behavior still applies on deploy)
+  // form submission — sends data to a Google Apps Script web app,
+  // which appends a row to a connected Google Sheet. See README.md.
   const form = document.getElementById("proposeForm");
   const success = document.getElementById("formSuccess");
   if(form){
-    form.addEventListener("submit", () => {
-      setTimeout(() => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // honeypot check — real users never fill this hidden field
+      if(form.querySelector('[name="bot-field"]').value){
+        return;
+      }
+
+      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
+        alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = "Sending…";
+      submitBtn.disabled = true;
+
+      try{
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors", // Apps Script web apps don't return CORS headers;
+                            // the request still lands and doPost() still runs.
+          body: new FormData(form)
+        });
+        form.style.display = "none";
         success.classList.add("show");
-      }, 400);
+      }catch(err){
+        alert("Something went wrong sending that — please try again in a moment.");
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+      }
     });
   }
 });
