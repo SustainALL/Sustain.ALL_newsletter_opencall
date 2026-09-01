@@ -205,50 +205,65 @@ h1,h2,h3,h4{
   color: var(--ink-soft);
   text-transform: uppercase;
 }
-.hero-art{ 
-  position:relative; 
-  height: 450px; 
+.hero-art {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 450px;
+  margin: 0 auto;
 }
-.hero-art svg{ 
-  width:100%; 
-  height:100%; 
+.hero-art svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
-.node{
-  position:absolute;
+.node {
+  position: absolute;
   font-family: var(--display);
   font-weight: 600;
   font-size: 14px;
-  text-align:center;
-  border-radius: 999px;
-  display:flex; align-items:center; justify-content:center;
-  padding: 0 18px;
-  box-shadow: 0 10px 24px rgba(22,22,26,0.10);
+  text-align: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(22, 22, 26, 0.10);
+  z-index: 2;
 }
-.node-you{
-  top: 0%; left: 2%;
-  width: 152px; height: 152px;
+.node-you {
+  top: 10px;
+  left: 10px;
+  width: 140px;
+  height: 140px;
   background: var(--ink);
   color: var(--pink-tint);
   padding: 0 14px;
   text-transform: uppercase;
-  line-height:1.25;
+  line-height: 1.25;
 }
-.node-hub{
-  top: 33%; left: 30%;
-  width: 168px; height: 168px;
+.node-hub {
+  top: 145px;
+  left: 120px;
+  width: 160px;
+  height: 160px;
   background: var(--magenta);
   color: var(--white);
   text-transform: uppercase;
-  line-height:1.25;
+  line-height: 1.25;
 }
-.node-out{
-  top: 68%; left: 64%;
-  width: 152px; height: 152px;
+.node-out {
+  top: 290px;
+  left: 240px;
+  width: 140px;
+  height: 140px;
   background: var(--ink);
   color: var(--pink-tint);
   border: none;
   text-transform: uppercase;
-  line-height:1.25;
+  line-height: 1.25;
 }
 
 /* ---------------- SECTION SHELLS ---------------- */
