@@ -205,9 +205,14 @@ h1,h2,h3,h4{
   color: var(--ink-soft);
   text-transform: uppercase;
 }
-
-.hero-art{ position:relative; height: 420px; }
-.hero-art svg{ width:100%; height:100%; }
+.hero-art{ 
+  position:relative; 
+  height: 450px; 
+}
+.hero-art svg{ 
+  width:100%; 
+  height:100%; 
+}
 .node{
   position:absolute;
   font-family: var(--display);
@@ -220,7 +225,7 @@ h1,h2,h3,h4{
   box-shadow: 0 10px 24px rgba(22,22,26,0.10);
 }
 .node-you{
-  top: 6%; left: 2%;
+  top: 0%; left: 2%;
   width: 152px; height: 152px;
   background: var(--ink);
   color: var(--pink-tint);
@@ -229,7 +234,7 @@ h1,h2,h3,h4{
   line-height:1.25;
 }
 .node-hub{
-  top: 42%; left: 38%;
+  top: 33%; left: 30%;
   width: 168px; height: 168px;
   background: var(--magenta);
   color: var(--white);
@@ -237,7 +242,7 @@ h1,h2,h3,h4{
   line-height:1.25;
 }
 .node-out{
-  bottom: 0%; right: 0%;
+  top: 68%; left: 64%;
   width: 152px; height: 152px;
   background: var(--ink);
   color: var(--pink-tint);
