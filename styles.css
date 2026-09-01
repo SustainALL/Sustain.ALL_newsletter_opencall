@@ -706,7 +706,8 @@ h1,h2,h3,h4{
   }
   .hero-art{ 
     order: -1; 
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: 450px; /* Fixed: gives full vertical height so circles don't spill into text */
     margin: 0 auto 10px;
   }
