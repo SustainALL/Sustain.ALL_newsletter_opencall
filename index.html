@@ -239,10 +239,8 @@
       </div>
 
       <div class="form-card">
-        <form name="challenge-proposal" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="proposeForm">
-          <input type="hidden" name="form-name" value="challenge-proposal">
-          <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
-
+       <form name="challenge-proposal" id="proposeForm">
+          <p style="position:absolute; left:-9999px;" aria-hidden="true"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <div class="field">
             <label for="name">Your name</label>
             <input type="text" id="name" name="name" required placeholder="Dr. Jane Doe">
