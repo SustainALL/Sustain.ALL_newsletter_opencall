@@ -5,7 +5,7 @@
 // Paste the Google Apps Script "Web app" URL here (ends in /exec).
 // See README.md for how to set this up — until this is filled in,
 // the form will show an error instead of submitting anywhere.
-const GOOGLE_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrJawaH_uHG-IEAsZDGfyw9XpsxDoa9_-40JftKv9z_V-owNksFrO3E6IID3HsyBE_/exec";
 
 const STAGES = ["Concept", "Pre-Prototype", "Prototype", "Pre-Pilot", "Pilot"];
 
