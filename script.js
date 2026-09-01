@@ -158,7 +158,7 @@ function modalHTML(p){
     <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
     <span class="tag">${p.cluster}</span>
     <h3>${p.title}</h3>
-    ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b>Student Initiative</b></p>`}
+    ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b> Student Initiative</b></p>`}
     ${stepperHTML(p.stage)}
     <div class="modal-row">
       <h5>The challenge</h5>
