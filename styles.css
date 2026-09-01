@@ -664,9 +664,17 @@ h1,h2,h3,h4{
 .footer-bottom a:hover{ color: var(--magenta); }
 
 /* ---------------- RESPONSIVE ---------------- */
+/* Update your existing max-width: 980px media query */
 @media (max-width: 980px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .hero-art{ height: 320px; order:-1; }
+  .hero-grid{ 
+    grid-template-columns: 1fr; 
+  }
+  .hero-art{ 
+    order: -1; 
+    width: 400px;
+    height: 450px; /* Fixed: gives full vertical height so circles don't spill into text */
+    margin: 0 auto 10px;
+  }
   .about-grid{ grid-template-columns: 1fr; }
   .steps{ grid-template-columns: repeat(2,1fr); }
   .step{ border-right:none; border-bottom:1px solid var(--line); padding: 26px 0; }
@@ -675,6 +683,15 @@ h1,h2,h3,h4{
   .cta-wrap{ grid-template-columns: 1fr; }
 }
 
+/* Add this new query to neatly scale the diagram on narrow phone screens */
+@media (max-width: 420px){
+  .hero-art{
+    transform: scale(0.82);
+    transform-origin: top center;
+    height: 370px; /* Adjusts wrapper height to match scaled diagram */
+    margin-bottom: 0;
+  }
+}
 @media (max-width: 680px){
   .wrap{ padding: 0 20px; }
   .nav-inner{ padding: 14px 20px; }
