@@ -9,6 +9,24 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_53P_c2HMjk
 
 const STAGES = ["Concept", "Pre-Prototype", "Prototype", "Pre-Pilot", "Pilot"];
 
+// maps each cluster name to its category, for colour-coding tags/chips
+const CLUSTER_CATEGORY = {
+  "AI, Data & Digital Sustainability": "enabler",
+  "Sustainable Finance": "enabler",
+  "Governance & Leadership": "enabler",
+  "Circular Economy": "cluster",
+  "Mobility & Smart Cities": "cluster",
+  "Climate & Energy": "cluster",
+  "Biodiversity & Food Systems": "cluster",
+  "Water & Land Systems": "cluster",
+  "People, Society & Wellbeing": "human",
+  "Culture & Transformation": "human",
+  "Education": "human"
+};
+function tagClassFor(cluster){
+  return "tag-" + (CLUSTER_CATEGORY[cluster] || "all");
+}
+
 const PROJECTS = [
   {
     id: "impact",
@@ -142,7 +160,7 @@ function cardHTML(p){
   return `
     <article class="pcard" data-cluster="${p.cluster}" data-id="${p.id}" tabindex="0">
       <div class="pcard-top">
-        <span class="tag">${p.cluster}</span>
+        <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
         <span class="origin">${STAGES[p.stage]}</span>
       </div>
       <h3>${p.title}</h3>
@@ -156,7 +174,7 @@ function cardHTML(p){
 function modalHTML(p){
   return `
     <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-    <span class="tag">${p.cluster}</span>
+    <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
     <h3>${p.title}</h3>
     ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b> Student Initiative</b></p>`}
     ${stepperHTML(p.stage)}

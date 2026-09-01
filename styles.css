@@ -26,6 +26,23 @@
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 8px;
+
+  /* cluster category colours */
+  --enabler-tint:  #DCF1E1;
+  --enabler-text:  #1C7A43;
+  --enabler-line:  rgba(28,122,67,0.28);
+
+  --cluster-tint:  #DCEAF9;
+  --cluster-text:  #1B5FA0;
+  --cluster-line:  rgba(27,95,160,0.28);
+
+  --human-tint:    #FBDCDC;
+  --human-text:    #B3271E;
+  --human-line:    rgba(179,39,30,0.28);
+
+  --all-tint:      #FBDCE9;
+  --all-text:      #B60052;
+  --all-line:      rgba(182,0,82,0.28);
 }
 
 *, *::before, *::after{ box-sizing: border-box; }
@@ -370,8 +387,6 @@ h1,h2,h3,h4{
   transition: border-color .15s ease, transform .15s ease, background .15s ease;
 }
 .cluster-chip:hover{ transform: translateY(-3px); border-color: var(--magenta); }
-.cluster-chip.active{ background: var(--ink); border-color: var(--ink); }
-.cluster-chip.active .cluster-name, .cluster-chip.active .cluster-desc{ color: var(--cream); }
 .cluster-chip .cluster-name{
   display:block;
   font-family: var(--display);
@@ -384,6 +399,25 @@ h1,h2,h3,h4{
   font-size: 13px;
   color: var(--ink-soft);
 }
+
+/* category colour coding — chips */
+.cluster-chip{ border-left: 4px solid var(--line); }
+.cluster-chip[data-category="enabler"]{ background: var(--enabler-tint); border-color: var(--enabler-line); border-left-color: var(--enabler-text); }
+.cluster-chip[data-category="enabler"] .cluster-desc{ color: var(--enabler-text); font-weight: 600; }
+.cluster-chip[data-category="cluster"]{ background: var(--cluster-tint); border-color: var(--cluster-line); border-left-color: var(--cluster-text); }
+.cluster-chip[data-category="cluster"] .cluster-desc{ color: var(--cluster-text); font-weight: 600; }
+.cluster-chip[data-category="human"]{ background: var(--human-tint); border-color: var(--human-line); border-left-color: var(--human-text); }
+.cluster-chip[data-category="human"] .cluster-desc{ color: var(--human-text); font-weight: 600; }
+.cluster-chip[data-category="all"]{ background: var(--all-tint); border-color: var(--all-line); border-left-color: var(--all-text); }
+.cluster-chip[data-category="all"] .cluster-desc{ color: var(--all-text); font-weight: 600; }
+.cluster-chip.active{ background: var(--ink) !important; border-color: var(--ink) !important; }
+.cluster-chip.active .cluster-name, .cluster-chip.active .cluster-desc{ color: var(--cream) !important; }
+
+/* category colour coding — project card tags */
+.tag.tag-enabler{ background: var(--enabler-tint); color: var(--enabler-text); }
+.tag.tag-cluster{ background: var(--cluster-tint); color: var(--cluster-text); }
+.tag.tag-human{ background: var(--human-tint); color: var(--human-text); }
+.tag.tag-all{ background: var(--all-tint); color: var(--all-text); }
 
 /* ---------------- PORTFOLIO / CHALLENGES ---------------- */
 .filter-row{
