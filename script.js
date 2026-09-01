@@ -28,8 +28,8 @@ const PROJECTS = [
     title: "Sustain.Circularity — Textile",
     cluster: "Circular Economy",
     partner: "Anett Hein & Julia Krzyslak, Zentrale Beschaffung",
-    challenge: "Contaminated institutional textiles had no centralised return process, so they went straight to disposal.",
-    solution: "A routing framework to safely categorise and dispatch used campus textiles for downcycling and recycling instead of the bin.",
+    challenge: "Contaminated institutional textiles had no centralised re-use or material recovery pathways.",
+    solution: "A routing framework to safely categorise and dispatch used campus textiles for downcycling and recycling instead of disposal.",
     development: "Mapped materials, brought external recycling companies to the table, and drafted a pilot proposal.",
     stage: 3, // Pre-Pilot
     further: "Clarifying internal budgets, running the pilot, and assessing recycled-material quality and economics.",
@@ -42,7 +42,7 @@ const PROJECTS = [
     cluster: "Circular Economy",
     partner: null,
     challenge: "Old electronics sit unused across the TU while new devices keep getting ordered — a linear waste of money and resources.",
-    solution: "An internal IT matchmaking site that requires staff to request repaired, used TU hardware before ordering anything new.",
+    solution: "An internal IT matchmaking site that requires staff to request refurbished TU hardware before ordering anything new.",
     development: "Mapped the key stakeholders and designed website wireframes with user-friendly hardware filters.",
     stage: 0, // Concept
     further: "Adding preliminary hardware inspections with the IT department, and embedding the platform into official university financing routes.",
@@ -134,7 +134,7 @@ function stepperHTML(stageIndex){
   return `
     <div class="stepper">
       <div class="stepper-track">${segs}</div>
-      <div class="stepper-label">${STAGES[stageIndex]} <span>· maturity today</span></div>
+      <div class="stepper-label">${STAGES[stageIndex]} <span>· Current Maturity</span></div>
     </div>`;
 }
 
@@ -148,7 +148,7 @@ function cardHTML(p){
       <h3>${p.title}</h3>
       <p class="pcard-challenge">${p.challenge}</p>
       ${stepperHTML(p.stage)}
-      <p class="pcard-partner">${p.partner ? `Partner: <b>${p.partner}</b>` : `<b>In-house / hub-mentored</b>`}</p>
+      <p class="pcard-partner">${p.partner ? `Partner: <b>${p.partner}</b>` : `<b> Student Initiative</b>`}</p>
       <span class="pcard-more">Read the full story →</span>
     </article>`;
 }
@@ -158,7 +158,7 @@ function modalHTML(p){
     <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
     <span class="tag">${p.cluster}</span>
     <h3>${p.title}</h3>
-    ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b>In-house / hub-mentored</b></p>`}
+    ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b>Student Initiative</b></p>`}
     ${stepperHTML(p.stage)}
     <div class="modal-row">
       <h5>The challenge</h5>
@@ -169,7 +169,7 @@ function modalHTML(p){
       <p>${p.solution}</p>
     </div>
     <div class="modal-row">
-      <h5>What the team built this semester</h5>
+      <h5>Progress so far</h5>
       <p>${p.development}</p>
     </div>
     <div class="modal-row">
