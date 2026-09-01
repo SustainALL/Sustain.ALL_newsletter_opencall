@@ -222,12 +222,12 @@ h1,h2,h3,h4{
   color: var(--ink-soft);
   text-transform: uppercase;
 }
-.hero-art {
-  position: relative;
-  width: 100%;
+.hero-art{ 
+  order: -1; 
+  width: 100%; 
   max-width: 400px;
   height: 450px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
 }
 .hero-art svg {
   position: absolute;
@@ -726,7 +726,8 @@ h1,h2,h3,h4{
     margin-bottom: 0;
   }
 }
-@media (max-width: 680px){
+@media (max-width: 680px){{
+   html, body{ overflow-x: hidden;}
   .wrap{ padding: 0 20px; }
   .nav-inner{ padding: 14px 20px; }
   .nav-links, .nav-cta .btn-ghost{ display:none; }
