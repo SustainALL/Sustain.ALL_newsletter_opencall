@@ -229,6 +229,7 @@ h1,h2,h3,h4{
   height: 450px;
   margin: 0 auto 10px;
 }
+.hero-grid > *{ min-width: 0; }
 .hero-art svg {
   position: absolute;
   top: 0;
@@ -726,7 +727,7 @@ h1,h2,h3,h4{
     margin-bottom: 0;
   }
 }
-@media (max-width: 680px){{
+@media (max-width: 680px){
    html, body{ overflow-x: hidden;}
   .wrap{ padding: 0 20px; }
   .nav-inner{ padding: 14px 20px; }
