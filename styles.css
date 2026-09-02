@@ -152,7 +152,7 @@ h1,h2,h3,h4{
   margin: 0 auto;
 }
 .nav-logo{ display:flex; align-items:center; gap:14px; }
-.nav-logo img{ height: 48px; width:auto; }
+.nav-logo img{ height: 72px; width:auto; }
 .nav-links{
   display:flex;
   align-items:center;
@@ -672,10 +672,10 @@ h1,h2,h3,h4{
   border-bottom: 1px solid rgba(243,238,228,0.15);
 }
 .footer-logos{ display:flex; align-items:center; gap:18px; }
-.footer-logos img{ height:30px; width:auto; }
-.footer-logos img.tu{ height:38px; }
-.footer-logos img.ecdf{ height:38px; width:auto; }
-.footer-divider{ width:1px; height:28px; background: rgba(243,238,228,0.25); }
+.footer-logos img{ height:45px; width:auto; }
+.footer-logos img.tu{ height:57px; }
+.footer-logos img.ecdf{ height:57px; width:auto; }
+.footer-divider{ width:1px; height:42px; background: rgba(243,238,228,0.25); }
 .footer-tagline{
   font-family: var(--display);
   text-transform: uppercase;
