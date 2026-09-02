@@ -42,6 +42,19 @@ const PROJECTS = [
     linkLabel: "View live prototype"
   },
   {
+    id: "finance",
+    title: "Sustain.Finance",
+    cluster: "Sustainable Finance",
+    partner: null,
+    challenge: "Small student-led impact projects often fail because existing funding applications are too slow and complex for micro-funding amounts (€500–€2,500).",
+    solution: "A fast, process-light TU Impact Fund offering rolling micro-grants based on a simple one-page application.",
+    development: "Designed a five-seat allocation committee, drafted a €15,000 pilot budget, and defined ESG donor pipelines.",
+    stage: 3, // Pre-Pilot
+    further: "Setting up the donation directive, naming a foundation contact, and opening talks with prospective first donors.",
+    link: "https://drive.google.com/file/d/1ka_4O3YXpg0b6CQhG9QZ1MOVutRq1tVX/view?usp=sharing",
+    linkLabel: "View project files"
+  },
+  {
     id: "circularity-textile",
     title: "Sustain.Circularity — Textile",
     cluster: "Circular Economy",
@@ -81,6 +94,19 @@ const PROJECTS = [
     linkLabel: "View project deck"
   },
   {
+    id: "energy",
+    title: "Sustain.Energy",
+    cluster: "Climate & Energy",
+    partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
+    challenge: "Campus energy use is invisible to the people in the building, and empty rooms are still heated and lit due to a spatial-utilisation gap.",
+    solution: "An energy-visualisation dashboard paired with an open-source IoT system that uses ceiling radar to match HVAC use to real attendance.",
+    development: "Built a monthly energy dashboard prototype for the library and mapped a zero-e-waste hardware integration matrix.",
+    stage: 0, // Concept (& dashboard prototype)
+    further: "Expanding smart-meter coverage, building an automated data pipeline, and piloting containerised local servers.",
+    link: "https://drive.google.com/file/d/1MWUYYiTqSbNV0n85_zbeOujzClAn2b61/view?usp=sharing",
+    linkLabel: "View project files"
+  },
+  {
     id: "partx",
     title: "Sustain.PartX",
     cluster: "People, Society & Wellbeing",
@@ -107,19 +133,6 @@ const PROJECTS = [
     linkLabel: "Watch video demo"
   },
   {
-    id: "energy",
-    title: "Sustain.Energy",
-    cluster: "Climate & Energy",
-    partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
-    challenge: "Campus energy use is invisible to the people in the building, and empty rooms are still heated and lit due to a spatial-utilisation gap.",
-    solution: "An energy-visualisation dashboard paired with an open-source IoT system that uses ceiling radar to match HVAC use to real attendance.",
-    development: "Built a monthly energy dashboard prototype for the library and mapped a zero-e-waste hardware integration matrix.",
-    stage: 0, // Concept (& dashboard prototype)
-    further: "Expanding smart-meter coverage, building an automated data pipeline, and piloting containerised local servers.",
-    link: "https://drive.google.com/file/d/1MWUYYiTqSbNV0n85_zbeOujzClAn2b61/view?usp=sharing",
-    linkLabel: "View project files"
-  },
-  {
     id: "hub",
     title: "Sustain.Hub",
     cluster: "Culture & Transformation",
@@ -131,19 +144,6 @@ const PROJECTS = [
     further: "Building modular furniture prototypes, hosting a student makeathon, and running a life-cycle-assessment comparison.",
     link: "https://docs.google.com/presentation/d/1KXeZOZTSBWGOFCtnigPAbYpxDoKr3Q0Q/edit?usp=sharing",
     linkLabel: "View project deck"
-  },
-  {
-    id: "finance",
-    title: "Sustain.Finance",
-    cluster: "Sustainable Finance",
-    partner: null,
-    challenge: "Small student-led impact projects often fail because existing funding applications are too slow and complex for micro-funding amounts (€500–€2,500).",
-    solution: "A fast, process-light TU Impact Fund offering rolling micro-grants based on a simple one-page application.",
-    development: "Designed a five-seat allocation committee, drafted a €15,000 pilot budget, and defined ESG donor pipelines.",
-    stage: 3, // Pre-Pilot
-    further: "Setting up the donation directive, naming a foundation contact, and opening talks with prospective first donors.",
-    link: "https://drive.google.com/file/d/1ka_4O3YXpg0b6CQhG9QZ1MOVutRq1tVX/view?usp=sharing",
-    linkLabel: "View project files"
   }
 ];
 
