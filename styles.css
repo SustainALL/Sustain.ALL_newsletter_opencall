@@ -671,7 +671,7 @@ h1,h2,h3,h4{
   padding-bottom: 40px;
   border-bottom: 1px solid rgba(243,238,228,0.15);
 }
-.footer-logos{ display:flex; align-items:center; gap:18px; }
+.footer-logos{ display:flex; align-items:center; gap:18px; flex-wrap: wrap; row-gap: 14px; }
 .footer-logos img{ height:45px; width:auto; }
 .footer-logos img.tu{ height:57px; }
 .footer-logos img.ecdf{ height:57px; width:auto; }
@@ -713,6 +713,11 @@ h1,h2,h3,h4{
   .nav-inner{ padding: 14px 20px; }
   .nav-links, .nav-cta .btn-ghost{ display:none; }
   .nav-toggle{ display:flex; }
+  .nav-logo img{ height: 40px; }
+  .footer-logos img{ height: 34px; }
+  .footer-logos img.tu{ height: 42px; }
+  .footer-logos img.ecdf{ height: 42px; }
+  .footer-divider{ height: 32px; }
   /* flow diagram: horizontal on phones instead of vertical */
   .flow{ flex-direction: row; gap: 10px; }
   .flow-node{ width: 96px; height: 96px; font-size: 10.5px; padding: 0 8px; }
