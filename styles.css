@@ -4,7 +4,7 @@
    cream field, ink black, and the logo's exact magenta dot.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Arial is a system font — no @import needed */
 
 :root{
   --cream:        #F3EEE4;
@@ -19,8 +19,8 @@
   --line:         rgba(22,22,26,0.14);
   --line-soft:    rgba(22,22,26,0.08);
 
-  --display: 'Space Grotesk', sans-serif;
-  --body:    'Inter', sans-serif;
+  --display: Arial, Helvetica, sans-serif;
+  --body:    Arial, Helvetica, sans-serif;
 
   --maxw: 1180px;
   --radius-lg: 22px;
