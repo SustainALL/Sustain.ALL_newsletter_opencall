@@ -288,7 +288,7 @@ h1,h2,h3,h4{
 .section-head{
   display:flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 24px;
   margin-bottom: 48px;
   flex-wrap: wrap;
