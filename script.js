@@ -303,4 +303,111 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // RSVP form (events section) — same Google Sheet endpoint, distinguished
+  // by the hidden formType=rsvp field so Apps Script can route it separately.
+  const rsvpForm = document.getElementById("rsvpForm");
+  const rsvpSuccess = document.getElementById("rsvpSuccess");
+  if(rsvpForm){
+    rsvpForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if(rsvpForm.querySelector('[name="bot-field"]').value){
+        return;
+      }
+
+      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
+        alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
+        return;
+      }
+
+      const submitBtn = rsvpForm.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = "Sending…";
+      submitBtn.disabled = true;
+
+      try{
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: new FormData(rsvpForm)
+        });
+        rsvpForm.style.display = "none";
+        rsvpSuccess.classList.add("show");
+      }catch(err){
+        alert("Something went wrong sending that — please try again in a moment.");
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+});
+
+// ============================================================
+// Model diagram arrows — drawn dynamically from actual measured
+// element positions, not fixed coordinates. This keeps the lines
+// pixel-accurate at every screen width, since it reads real layout
+// instead of assuming a fixed proportion between the hub and cards.
+// ============================================================
+function drawModelArrows(){
+  const svg = document.getElementById("modelArrows");
+  if(!svg) return;
+  if(getComputedStyle(svg).display === "none") return; // hidden on mobile — nothing to draw
+
+  const container = document.querySelector(".model-diagram");
+  const hub = document.querySelector(".model-hub");
+  if(!container || !hub) return;
+
+  const targets = {
+    academic:   document.querySelector(".model-card--academic"),
+    challenges: document.querySelector(".model-card--challenges"),
+    cocreation: document.querySelector(".model-card--cocreation"),
+    experiment: document.querySelector(".model-card--experiment"),
+    transfer:   document.querySelector(".model-card--transfer")
+  };
+
+  const cRect = container.getBoundingClientRect();
+  if(cRect.width === 0 || cRect.height === 0) return;
+  svg.setAttribute("viewBox", `0 0 ${cRect.width} ${cRect.height}`);
+
+  const hubRect = hub.getBoundingClientRect();
+  const hubCenter = {
+    x: hubRect.left + hubRect.width / 2 - cRect.left,
+    y: hubRect.top + hubRect.height / 2 - cRect.top
+  };
+  const hubR = hubRect.width / 2;
+
+  svg.querySelectorAll(".arrow-line").forEach(path => {
+    const el = targets[path.dataset.to];
+    if(!el) return;
+    const r = el.getBoundingClientRect();
+
+    let point;
+    if(path.dataset.to === "transfer"){
+      point = { x: r.left + r.width / 2 - cRect.left, y: r.top - cRect.top };
+    } else {
+      const cardCenterX = r.left + r.width / 2;
+      const isLeftSide = cardCenterX < hubRect.left + hubRect.width / 2;
+      point = {
+        x: (isLeftSide ? r.right : r.left) - cRect.left,
+        y: r.top + r.height / 2 - cRect.top
+      };
+    }
+
+    const dx = point.x - hubCenter.x;
+    const dy = point.y - hubCenter.y;
+    const dist = Math.hypot(dx, dy) || 1;
+    const ux = dx / dist, uy = dy / dist;
+    const start = { x: hubCenter.x + ux * hubR, y: hubCenter.y + uy * hubR };
+
+    path.setAttribute("d", `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${point.x.toFixed(1)} ${point.y.toFixed(1)}`);
+  });
+}
+
+window.addEventListener("load", drawModelArrows);
+document.addEventListener("DOMContentLoaded", () => setTimeout(drawModelArrows, 50));
+let modelArrowsResizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(modelArrowsResizeTimer);
+  modelArrowsResizeTimer = setTimeout(drawModelArrows, 150);
 });

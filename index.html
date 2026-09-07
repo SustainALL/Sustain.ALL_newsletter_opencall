@@ -72,12 +72,12 @@
       </div>
 
       <div class="model-diagram">
-        <svg class="model-arrows" viewBox="0 0 1000 620" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
-          <path d="M 368.7 234.1 Q 345.3 205.3 322.0 208.4" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <path d="M 631.4 234.2 Q 654.7 205.3 678.0 208.4" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <path d="M 368.7 379.1 Q 345.3 408.0 322.0 404.9" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <path d="M 631.3 379.1 Q 654.7 408.0 678.0 404.9" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <path d="M 500.0 456.6 Q 512.0 471.7 500.0 486.8" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <svg class="model-arrows" id="modelArrows" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="arrow-line" data-to="academic" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path class="arrow-line" data-to="challenges" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path class="arrow-line" data-to="cocreation" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path class="arrow-line" data-to="experiment" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path class="arrow-line" data-to="transfer" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
         </svg>
 
         <div class="model-badge model-badge--pink" style="grid-area: badge-l;">Physical<br>spaces &amp; events</div>
@@ -355,6 +355,48 @@
           </div>
         </form>
         <div class="form-success" id="formSuccess">Thanks — your challenge is in. We'll be in touch shortly.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS / RSVP -->
+  <section class="section" id="events">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Come say hello</span>
+          <h2>Meet the hub — Q&amp;A session</h2>
+        </div>
+        <p class="lede">An informal get-to-know-us session: what working with Sustain.ALL actually looks like, plus an open Q&amp;A for anything you're weighing up. Pick whichever date suits you.</p>
+      </div>
+
+      <div class="event-card">
+        <form name="event-rsvp" id="rsvpForm">
+          <p style="position:absolute; left:-9999px;" aria-hidden="true"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <input type="hidden" name="formType" value="rsvp">
+
+          <div class="field">
+            <label>Which date works for you?</label>
+            <div class="radio-row">
+              <label class="radio-opt"><input type="radio" name="eventDate" value="28 Sep — TU Partner Information Event (Online)" checked> 28 Sep — TU Partner Information Event (Online)</label>
+              <label class="radio-opt"><input type="radio" name="eventDate" value="7 Oct — IHK Partnering Event"> 7 Oct — IHK Partnering Event</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rsvpName">Your name</label>
+            <input type="text" id="rsvpName" name="name" required placeholder="Dr. Max Mustermann">
+          </div>
+          <div class="field">
+            <label for="rsvpEmail">Email</label>
+            <input type="email" id="rsvpEmail" name="email" required placeholder="maxmustermann@org.de">
+          </div>
+
+          <div class="form-foot">
+            <p class="form-note">We'll send the location and time once you RSVP.</p>
+            <button type="submit" class="btn btn-primary">RSVP now</button>
+          </div>
+        </form>
+        <div class="form-success" id="rsvpSuccess">Thanks — you're on the list. See you there!</div>
       </div>
     </div>
   </section>
