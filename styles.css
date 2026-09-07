@@ -365,6 +365,120 @@ h1,h2,h3,h4{
 }
 .step p{ color: var(--ink-soft); font-size: 14.5px; margin:0; }
 
+/* ---------------- MODEL DIAGRAM ---------------- */
+.model-diagram{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 300px) 1fr;
+  grid-template-rows: auto auto 36px auto auto;
+  grid-template-areas:
+    "badge-l .   badge-r"
+    "card-tl hub card-tr"
+    ".       hub .      "
+    "card-bl hub card-br"
+    ".       transfer . ";
+  column-gap: 28px;
+  row-gap: 20px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 0 6px;
+}
+.model-arrows{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.model-card, .model-hub, .model-badge{ position: relative; z-index: 1; }
+
+.model-card{
+  background: var(--white);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--line);
+  padding: 20px 22px;
+}
+.model-card h3{
+  font-size: 19px;
+  text-transform: none;
+  margin: 6px 0 6px;
+  line-height: 1.2;
+}
+.model-card p{ margin:0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.4; }
+.model-eyebrow{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.model-card--academic{ border-color: var(--cluster-line); }
+.model-card--academic .model-eyebrow{ color: var(--cluster-text); }
+.model-card--challenges{ border-color: var(--enabler-line); }
+.model-card--challenges .model-eyebrow{ color: var(--enabler-text); }
+.model-card--cocreation{ border-color: var(--all-line); }
+.model-card--cocreation .model-eyebrow{ color: var(--all-text); }
+.model-card--experiment{ border-color: var(--human-line); }
+.model-card--experiment .model-eyebrow{ color: var(--human-text); }
+.model-card--transfer{
+  border-color: var(--ink);
+  max-width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+.model-card--transfer .model-eyebrow{ color: var(--ink); }
+
+.model-hub{
+  grid-area: hub;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 2.5px solid var(--magenta);
+  box-shadow: 0 16px 34px rgba(22,22,26,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+  text-align: center;
+}
+.model-hub img{ width: 78%; height: auto; }
+.model-hub span{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.model-badge{
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid var(--magenta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--magenta-deep);
+  padding: 0 10px;
+}
+.model-badge--blue{ border-color: var(--cluster-text); color: var(--cluster-text); }
+
 /* ---------------- CLUSTERS ---------------- */
 .cluster-grid{
   display:grid;
@@ -727,6 +841,24 @@ h1,h2,h3,h4{
   .flow-arrow{ font-size: 18px; }
   .flow > .flow-arrow:nth-of-type(2),
   .flow > .flow-arrow:nth-of-type(4){ transform: none; }
+
+  /* model diagram: simple stacked list on phones — no arrows, no badges */
+  .model-arrows{ display: none; }
+  .model-badge{ display: none; }
+  .model-diagram{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    max-width: 100%;
+    padding: 0;
+  }
+  .model-hub{ order: 1; max-width: 220px; }
+  .model-card--academic{ order: 2; }
+  .model-card--challenges{ order: 3; }
+  .model-card--cocreation{ order: 4; }
+  .model-card--experiment{ order: 5; }
+  .model-card--transfer{ order: 6; max-width: 100%; }
   .nav.open .nav-links{
     display:flex; flex-direction:column;
     position:absolute; top:100%; left:0; right:0;

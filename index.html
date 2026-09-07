@@ -43,8 +43,8 @@
           <a href="#challenges" class="btn btn-ghost">Our Projects so far...</a>
         </div>
         <div class="hero-stats">
-          <div class="hero-stat"><b>9</b><span>Active challenges</span></div>
-          <div class="hero-stat"><b>11</b><span>Innovation clusters</span></div>
+          <div class="hero-stat"><b>9</b><span>Challenges taken on</span></div>
+          <div class="hero-stat"><b>7</b><span>Active clusters</span></div>
           <div class="hero-stat"><b>1</b><span>Semester completed</span></div>
         </div>
       </div>
@@ -59,6 +59,72 @@
       </div>
     </div>
   </header>
+
+  <!-- MODEL DIAGRAM -->
+  <section class="section" id="model">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">How the hub is built</span>
+          <h2>The Sustain.ALL model</h2>
+        </div>
+        <p class="lede">One hub, five moving parts — academic learning, real challenges, co-creation, experimentation and transfer, all feeding back into the centre.</p>
+      </div>
+
+      <div class="model-diagram">
+        <svg class="model-arrows" viewBox="0 0 1000 620" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M 368.7 234.1 Q 345.3 205.3 322.0 208.4" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 322.0 208.4 L 332.2 201.5 L 333.6 212.4 Z" fill="#E8006A"/>
+          <path d="M 631.4 234.2 Q 654.7 205.3 678.0 208.4" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 678.0 208.4 L 666.4 212.4 L 667.8 201.5 Z" fill="#E8006A"/>
+          <path d="M 368.7 379.1 Q 345.3 408.0 322.0 404.9" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 322.0 404.9 L 333.6 400.9 L 332.2 411.8 Z" fill="#E8006A"/>
+          <path d="M 631.3 379.1 Q 654.7 408.0 678.0 404.9" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 678.0 404.9 L 667.8 411.8 L 666.4 400.9 Z" fill="#E8006A"/>
+          <path d="M 500.0 456.6 Q 512.0 471.7 500.0 486.8" stroke="#E8006A" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <path d="M 500.0 486.8 L 502.5 474.8 L 511.1 481.6 Z" fill="#E8006A"/>
+        </svg>
+
+        <div class="model-badge model-badge--pink" style="grid-area: badge-l;">Physical<br>spaces &amp; events</div>
+        <div class="model-badge model-badge--blue" style="grid-area: badge-r;">Digital<br>platform &amp; knowledge</div>
+
+        <div class="model-card model-card--academic" style="grid-area: card-tl;">
+          <span class="model-eyebrow">Academic Learning</span>
+          <h3>Study reform module</h3>
+          <p>Future skills &amp; challenge-based learning.</p>
+        </div>
+
+        <div class="model-card model-card--challenges" style="grid-area: card-tr;">
+          <span class="model-eyebrow">Real Challenges</span>
+          <h3>11 innovation clusters</h3>
+          <p>Energy · Mobility · Buildings · Participation · Education · AI …</p>
+        </div>
+
+        <div class="model-card model-card--cocreation" style="grid-area: card-bl;">
+          <span class="model-eyebrow">Co-Creation</span>
+          <h3>Multi-stakeholder approach</h3>
+          <p>Students · Researchers · Staff · Partners: public sector, industry, society.</p>
+        </div>
+
+        <div class="model-card model-card--experiment" style="grid-area: card-br;">
+          <span class="model-eyebrow">Experimentation Formats</span>
+          <h3>Hackathons &amp; prototypes</h3>
+          <p>Hackathons · Prototypes · Campus sandbox · Platform · Campus HUB.</p>
+        </div>
+
+        <div class="model-hub" style="grid-area: hub;">
+          <img src="sustain-all-logo.png" alt="Sustain.ALL Transformation Hub">
+          <span>Co-Creation · Education<br>Innovation · Impact</span>
+        </div>
+
+        <div class="model-card model-card--transfer" style="grid-area: transfer;">
+          <span class="model-eyebrow">Transfer</span>
+          <h3>Implementation</h3>
+          <p>Implementation · Partnerships · Research.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ABOUT -->
   <section class="section" id="about">
@@ -142,7 +208,7 @@
       <div class="section-head">
         <div>
           <span class="eyebrow">Clusters under Sustain.ALL</span>
-          <h2>9 Challenges, 11 Innovation Clusters</h2>
+          <h2>11 clusters available, 7 clusters under our belt</h2>
         </div>
         <p class="lede">Every challenge we take on is grouped under a cluster. You can see the challenges in progress under each cluster.</p>
       </div>
@@ -279,12 +345,11 @@
             <textarea id="challenge" name="challenge" required placeholder="What isn't working, and for whom?"></textarea>
           </div>
           <div class="field">
-            <label>What would be your level of involvement this semester?</label>
+            <label>Can you mentor a student team this semester?</label>
             <div class="radio-row">
-              <label class="radio-opt"><input type="radio" name="mentor" value="Project Partner" checked> Project Partner- Bring your challenge and work with the student team</label>
-              <label class="radio-opt"><input type="radio" name="mentor" value="Mentor"> Mentor- Support a student group as domain expert</label>
-              <label class="radio-opt"><input type="radio" name="mentor" value="Project Partner & Mentor"> Project Partner & Mentor</label>
-              <label class="radio-opt"><input type="radio" name="mentor" value="Unsure"> Not sure yet</label>
+              <label class="radio-opt"><input type="radio" name="mentor" value="Yes" checked> Yes</label>
+              <label class="radio-opt"><input type="radio" name="mentor" value="Maybe, depending on scope"> Maybe</label>
+              <label class="radio-opt"><input type="radio" name="mentor" value="No, just proposing"> Not this time</label>
             </div>
           </div>
 
