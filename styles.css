@@ -894,3 +894,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   outline: 2px solid var(--magenta);
   outline-offset: 2px;
 }
+
+/* ---- Events switch ----
+   Anything marked class="events-only" is hidden while <body class="events-hidden"> is set. */
+.events-hidden .events-only{ display: none !important; }
