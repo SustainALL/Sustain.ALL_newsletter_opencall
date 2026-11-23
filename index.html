@@ -7,6 +7,54 @@
 <meta name="description" content="Sustain.ALL Transformation Hub invites TU Berlin faculty, administration and partners to submit real sustainability challenges and mentor interdisciplinary student teams from concept to pilot.">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="styles.css">
+<style>
+/* Portfolio semester metadata — works with the existing styles.css card styles. */
+.pcard-semester {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 10px;
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(232, 0, 106, .18);
+  border-radius: 10px;
+  background: rgba(232, 0, 106, .035);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.pcard-semester-title {
+  color: #7b5267;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.pcard-semester-value { color: #29232a; font-weight: 600; }
+.pcard-continuing {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(232, 0, 106, .10);
+  color: #a0004a;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pcard-continuing::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #e8006a;
+}
+.portfolio-order-note {
+  margin: 0 0 17px;
+  color: #70636c;
+  font-size: 13px;
+}
+</style>
 </head>
 <!-- EVENTS SWITCH: while "events-hidden" is here, the RSVP nav button and the Events/RSVP section are hidden.
      To show them again, delete the word  events-hidden  (leave class="" empty or remove the class attribute). -->
@@ -271,7 +319,7 @@
           <span class="eyebrow">Proof, not promises</span>
           <h2>Project Portfolio</h2>
         </div>
-        <p class="lede">Nine challenges, brought to us by partners across the university or developed by students themselves during the Sustain.ALL Hackathon 26, the Summer Semester 2026 and challenges that are newly introduced or continue into Winter Semester 2026. Tap a card for the full story — challenge, solution, and where it stands today.</p>
+        <p class="lede">Explore partner challenges and student initiatives from the Sustain.ALL Hackathon. Each card now shows the semester(s) in which the challenge was developed and, when confirmed, whether it is continuing this semester. Tap a card for the full story.</p>
       </div>
 
       <div class="filter-row" id="filterRow">
@@ -289,6 +337,7 @@
         <button class="filter-btn" data-filter="Education">Education</button>
       </div>
 
+      <p class="portfolio-order-note">Partner challenges appear first, followed by student initiatives.</p>
       <div class="card-grid" id="cardGrid"><!-- cards injected by script.js --></div>
     </div>
   </section>
@@ -370,9 +419,9 @@
       <div class="section-head">
         <div>
           <span class="eyebrow">Come say hello</span>
-          <h2>Meet the hub</h2>
+          <h2>Meet the hub — Q&amp;A session</h2>
         </div>
-        <p class="lede">We host several events for you to get to know what working with Sustain.ALL actually looks like. Come by to discuss your involvement and challenge with nothing but the spirit of sustainability! And of course, a RSVP :)</p>
+        <p class="lede">An informal get-to-know-us session: what working with Sustain.ALL actually looks like, plus an open Q&amp;A for anything you're weighing up. Pick whichever date suits you.</p>
       </div>
 
       <div class="event-card">
@@ -381,7 +430,7 @@
           <input type="hidden" name="formType" value="rsvp">
 
           <div class="field">
-            <label>Which event are you interested in?</label>
+            <label>Which date works for you?</label>
             <div class="radio-row">
               <label class="radio-opt"><input type="radio" name="eventDate" value="2 December, 14:30-17:30 - Co-creation Day" checked> 2 December, 14:30-17:30 - Co-creation Day</label>
             </div>
