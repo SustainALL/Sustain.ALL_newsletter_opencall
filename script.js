@@ -1,416 +1,623 @@
-// ============================================================
-// SUSTAIN.ALL — project data & interactivity
-// ============================================================
 
-// Paste the Google Apps Script "Web app" URL here (ends in /exec).
-// See README.md for how to set this up — until this is filled in,
-// the form will show an error instead of submitting anywhere.
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ81ylZIADfQnHCou22JZSqBTgGM6dOp76QUGrGF-E52gv3Dw43MhCfHdEfDxgT5ZN/exec";
+ // ============================================================
+ // SUSTAIN.ALL — project data & interactivity
+ // ============================================================
 
-const STAGES = ["Concept", "Pre-Prototype", "Prototype", "Pre-Pilot", "Pilot"];
+ // Google Apps Script Web App URL
+ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ81ylZIADfQnHCou22JZSqBTgGM6dOp76QUGrGF-E52gv3Dw43MhCfHdEfDxgT5ZN/exec";
 
-// maps each cluster name to its category, for colour-coding tags/chips
-const CLUSTER_CATEGORY = {
-  "AI, Data & Digital Sustainability": "enabler",
-  "Sustainable Finance": "enabler",
-  "Governance & Leadership": "enabler",
-  "Circular Economy": "cluster",
-  "Mobility & Smart Cities": "cluster",
-  "Climate & Energy": "cluster",
-  "Biodiversity & Food Systems": "cluster",
-  "Water & Land Systems": "cluster",
-  "People, Society & Wellbeing": "human",
-  "Culture & Transformation": "human",
-  "Education": "human"
-};
-function tagClassFor(cluster){
-  return "tag-" + (CLUSTER_CATEGORY[cluster] || "all");
-}
+ const STAGES = ["Concept", "Pre-Prototype", "Prototype", "Pre-Pilot", "Pilot"];
 
-const PROJECTS = [
- {
-    id: "impact",
-    title: "Sustain.Impact",
-    cluster: "AI, Data & Digital Sustainability",
-    partner: "Dr. Kristina Fajga, Science & Startups",
-    challenge: "TU Berlin has an opportunity to make the environmental impact of campus projects more measurable, comparable, and visible across faculties.",
-    solution: "A website where project data is submitted, scored out of 100 by an AI engine, and displayed publicly under the relevant faculty.",
-    development: "This semester the team shipped the scoring logic, the data pipeline, and a live webpage hosted on GitHub.",
-    stage: 2, // Prototype
-    further: "Correcting AI model bias, folding in feedback, and preparing a pilot program under EU data-protection rules.",
-    link: "https://i-tup.github.io/frontend/",
-    linkLabel: "View live prototype"
-  },
-  {
-    id: "finance",
-    title: "Sustain.Finance",
-    cluster: "Sustainable Finance",
-    partner: null,
-    challenge: "Student-led impact projects can benefit from faster, more accessible funding opportunities tailored to smaller amounts (€500–€2,500).",
-    solution: "A fast, process-light TU Impact Fund offering rolling micro-grants based on a simple one-page application.",
-    development: "Designed a five-seat allocation committee, drafted a €15,000 pilot budget, and defined ESG donor pipelines.",
-    stage: 3, // Pre-Pilot
-    further: "Setting up the donation directive, naming a foundation contact, and opening talks with prospective first donors.",
-    link: "https://drive.google.com/file/d/1ka_4O3YXpg0b6CQhG9QZ1MOVutRq1tVX/view?usp=sharing",
-    linkLabel: "View project files"
-  },
-  {
-    id: "circularity-textile",
-    title: "Sustain.Circularity — Textile",
-    cluster: "Circular Economy",
-    partner: "Anett Hein & Julia Krzyslak, Zentrale Beschaffung",
-    challenge: "Institutional textiles, including contaminated materials, offer opportunities to develop safe and coordinated pathways for material recovery.",
-    solution: "A routing framework to safely categorise and dispatch used campus textiles for downcycling and recycling instead of disposal.",
-    development: "Mapped materials, brought external recycling companies to the table, and drafted a pilot proposal.",
-    stage: 3, // Pre-Pilot
-    further: "Clarifying internal budgets, running the pilot, and assessing recycled-material quality and economics.",
-    link: "Sustain.Circularity_Textile.pdf",
-    linkLabel: "View project report"
-  },
-  {
-    id: "circularity-it",
-    title: "Sustain.Circularity — IT",
-    cluster: "Circular Economy",
-    partner: null,
-    challenge: "Existing campus electronics offer valuable potential for extending device lifespans, reducing resource consumption, and improving procurement efficiency.",
-    solution: "An internal IT matchmaking site that requires staff to request refurbished TU hardware before ordering anything new.",
-    development: "Mapped the key stakeholders and designed website wireframes with user-friendly hardware filters.",
-    stage: 0, // Concept
-    further: "Adding preliminary hardware inspections with the IT department, and embedding the platform into official university financing routes.",
-    link: "https://docs.google.com/presentation/d/17TS0B-vTxgyZk8tjge8UisuwYLZveDgJ/edit?usp=sharing",
-    linkLabel: "View project deck"
-  },
-  {
-    id: "mobility",
-    title: "Sustain.Mobility",
-    cluster: "Mobility & Smart Cities",
-    partner: "Dr. Michael Hüllenkrämer, K4-Stabsstelle SDU & Gloria Karcher, Stabsstelle Nachhaltigkeit",
-    challenge: "Campus navigation presents an opportunity to enhance orientation, accessibility, and convenience through real-time, multilingual digital guidance.",
-    solution: "A centralised TUB-Navi app combining indoor and outdoor maps with live updates on accessibility, bike parking and EV charging.",
-    development: "Surveyed users to confirm demand, mapped stakeholders, analysed competitor navigation apps, and designed a static prototype.",
-    stage: 1, // Pre-Prototype
-    further: "Building a functional Figma prototype, securing data partnerships, and launching a pilot tied to a gamified mobility challenge.",
-    link: "Sustain.MOBILITY.pdf",
-    linkLabel: "View project report"
-  },
-  {
-    id: "energy",
-    title: "Sustain.Energy",
-    cluster: "Climate & Energy",
-    partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
-    challenge: "Greater visibility into campus energy use and room occupancy offers opportunities to optimise heating, lighting, and overall building efficiency.",
-    solution: "An energy-visualisation dashboard paired with an open-source IoT system that uses ceiling radar to match HVAC use to real attendance.",
-    development: "Built a monthly energy dashboard prototype for the library and mapped a zero-e-waste hardware integration matrix.",
-    stage: 0, // Concept (& dashboard prototype)
-    further: "Expanding smart-meter coverage, building an automated data pipeline, and piloting containerised local servers.",
-    links: [
-      { href: "https://claude.ai/code/artifact/2b0fee3b-88cc-4840-9821-864fc1080f05", label: "Open Energy Education Map" },
-      { href: "https://claude.ai/code/artifact/8ce11341-2564-4c68-88dc-52ccd7834474", label: "Open Monthly Energy Dashboard" },
-      { href: "Sustain.ENERGY_library.pdf", label: "View project report for ZB Energy Reduction" }
-    ]
-  },
-  {
-    id: "partx",
-    title: "Sustain.PartX",
-    cluster: "People, Society & Wellbeing",
-    partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
-    challenge: "TU Berlin's diverse sustainability initiatives provide an opportunity to make participation more accessible, engaging, and rewarding for students.",
-    solution: "A gamified platform that aggregates green opportunities and offers easier access and tangible rewards to motivate behavioural change.",
-    development: "Ran stakeholder mapping, completed a student barrier survey, and designed a static web interface.",
-    stage: 1, // Pre-Prototype
-    further: "Translating the static interface into a working platform prototype that directly addresses the barriers students named.",
-    link: "Sustain.PARTX.pdf",
-    linkLabel: "View project report"
-  },
-  {
-    id: "food",
-    title: "Sustain.Food",
-    cluster: "People, Society & Wellbeing",
-    partner: null,
-    challenge: "With food systems contributing roughly 34% of global greenhouse-gas emissions, student meal choices present a meaningful opportunity to encourage more sustainable eating habits.",
-    solution: "EcoLens — a gamified mobile app that turns official food data into sustainability points, rewarding eco-friendly cafeteria meals via leaderboards.",
-    development: "Built a live interactive demo, formulated the scoring logic, and ran a technical API and cost-feasibility analysis.",
-    stage: 2, // Prototype
-    further: "Securing data partnerships with Studierendenwerk, obtaining pilot funding, and deploying the app for student use.",
-    link: "https://www.youtube.com/watch?app=desktop&v=VjhzTcMpEts&ra=m",
-    linkLabel: "Watch video demo"
-  },
-  {
-    id: "hub",
-    title: "Sustain.Hub",
-    cluster: "Culture & Transformation",
-    partner: "Dr. Michael Wilmes, Präsidialamt",
-    challenge: "Underused cafeteria spaces and existing furniture offer an opportunity to create flexible, resource-efficient environments for interdisciplinary student collaboration.",
-    solution: "Turning abandoned cafeterias into circular co-creation hubs by retrofitting existing furniture into modular systems.",
-    development: "Ran site visits, surveyed student needs, researched best practice, and produced a circular design framework.",
-    stage: 0, // Concept
-    further: "Building modular furniture prototypes, hosting a student makeathon, and running a life-cycle-assessment comparison.",
-    link: "Sustain.HUB.html",
-    linkLabel: "View project report"
-  }
-];
+ const CLUSTER_CATEGORY = {
+   "AI, Data & Digital Sustainability": "enabler",
+   "Sustainable Finance": "enabler",
+   "Governance & Leadership": "enabler",
+   "Circular Economy": "cluster",
+   "Mobility & Smart Cities": "cluster",
+   "Climate & Energy": "cluster",
+   "Biodiversity & Food Systems": "cluster",
+   "Water & Land Systems": "cluster",
+   "People, Society & Wellbeing": "human",
+   "Culture & Transformation": "human",
+   "Education": "human"
+ };
 
-function stepperHTML(stageIndex){
-  const segs = STAGES.map((s, i) => `<span class="stepper-seg ${i <= stageIndex ? 'done' : ''}"></span>`).join("");
-  return `
-    <div class="stepper">
-      <div class="stepper-track">${segs}</div>
-      <div class="stepper-label">${STAGES[stageIndex]} <span>· Current Maturity</span></div>
-    </div>`;
-}
+ function tagClassFor(cluster){
+   return "tag-" + (CLUSTER_CATEGORY[cluster] || "all");
+ }
 
-function cardHTML(p){
-  return `
-    <article class="pcard" data-cluster="${p.cluster}" data-id="${p.id}" tabindex="0">
-      <div class="pcard-top">
-        <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
-        <span class="origin">${STAGES[p.stage]}</span>
-      </div>
-      <h3>${p.title}</h3>
-      <p class="pcard-challenge">${p.challenge}</p>
-      ${stepperHTML(p.stage)}
-      <p class="pcard-partner">${p.partner ? `Partner: <b>${p.partner}</b>` : `<b> Student Initiative</b>`}</p>
-      <span class="pcard-more">Read the full story →</span>
-    </article>`;
-}
+ // ============================================================
+ // SEMESTER SETTINGS
+ //
+ // semesters: list the semesters in which the project ran.
+ // continuingThisSemester:
+ //   true  = display "Continuing this semester"
+ //   false = project is not continuing
+ //   null  = continuation status not confirmed
+ //
+ // Example:
+ // semesters: ["Summer Semester 2026", "Winter Semester 2026/27"],
+ // continuingThisSemester: true,
+ // ============================================================
 
-function modalHTML(p){
-  return `
-    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-    <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
-    <h3>${p.title}</h3>
-    ${p.partner ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>` : `<p class="pcard-partner"><b> Student Initiative</b></p>`}
-    ${stepperHTML(p.stage)}
-    <div class="modal-row">
-      <h5>The challenge</h5>
-      <p>${p.challenge}</p>
-    </div>
-    <div class="modal-row">
-      <h5>The proposed solution</h5>
-      <p>${p.solution}</p>
-    </div>
-    <div class="modal-row">
-      <h5>Progress so far</h5>
-      <p>${p.development}</p>
-    </div>
-    <div class="modal-row">
-      <h5>Next steps</h5>
-      <p>${p.further}</p>
-    </div>
-    ${p.link ? `<a class="modal-link" href="${p.link}" target="_blank" rel="noopener">${p.linkLabel} ↗</a>` : ""}
-  `;
-}
+ const PROJECTS = [
+   {
+     id: "impact",
+     title: "Sustain.Impact",
+     cluster: "AI, Data & Digital Sustainability",
+     partner: "Dr. Kristina Fajga, Science & Startups",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "TU Berlin has an opportunity to make the environmental impact of campus projects more measurable, comparable, and visible across faculties.",
+     solution: "A website where project data is submitted, scored out of 100 by an AI engine, and displayed publicly under the relevant faculty.",
+     development: "This semester the team shipped the scoring logic, the data pipeline, and a live webpage hosted on GitHub.",
+     stage: 2,
+     further: "Correcting AI model bias, folding in feedback, and preparing a pilot program under EU data-protection rules.",
+     link: "https://i-tup.github.io/frontend/",
+     linkLabel: "View live prototype"
+   },
+   {
+     id: "finance",
+     title: "Sustain.Finance",
+     cluster: "Sustainable Finance",
+     partner: null,
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Student-led impact projects can benefit from faster, more accessible funding opportunities tailored to smaller amounts (€500–€2,500).",
+     solution: "A fast, process-light TU Impact Fund offering rolling micro-grants based on a simple one-page application.",
+     development: "Designed a five-seat allocation committee, drafted a €15,000 pilot budget, and defined ESG donor pipelines.",
+     stage: 3,
+     further: "Setting up the donation directive, naming a foundation contact, and opening talks with prospective first donors.",
+     link: "https://drive.google.com/file/d/1ka_4O3YXpg0b6CQhG9QZ1MOVutRq1tVX/view?usp=sharing",
+     linkLabel: "View project files"
+   },
+   {
+     id: "circularity-textile",
+     title: "Sustain.Circularity — Textile",
+     cluster: "Circular Economy",
+     partner: "Anett Hein & Julia Krzyslak, Zentrale Beschaffung",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Institutional textiles, including contaminated materials, offer opportunities to develop safe and coordinated pathways for material recovery.",
+     solution: "A routing framework to safely categorise and dispatch used campus textiles for downcycling and recycling instead of disposal.",
+     development: "Mapped materials, brought external recycling companies to the table, and drafted a pilot proposal.",
+     stage: 3,
+     further: "Clarifying internal budgets, running the pilot, and assessing recycled-material quality and economics.",
+     link: "Sustain.Circularity_Textile.pdf",
+     linkLabel: "View project report"
+   },
+   {
+     id: "circularity-it",
+     title: "Sustain.Circularity — IT",
+     cluster: "Circular Economy",
+     partner: null,
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Existing campus electronics offer valuable potential for extending device lifespans, reducing resource consumption, and improving procurement efficiency.",
+     solution: "An internal IT matchmaking site that requires staff to request refurbished TU hardware before ordering anything new.",
+     development: "Mapped the key stakeholders and designed website wireframes with user-friendly hardware filters.",
+     stage: 0,
+     further: "Adding preliminary hardware inspections with the IT department, and embedding the platform into official university financing routes.",
+     link: "https://docs.google.com/presentation/d/17TS0B-vTxgyZk8tjge8UisuwYLZveDgJ/edit?usp=sharing",
+     linkLabel: "View project deck"
+   },
+   {
+     id: "mobility",
+     title: "Sustain.Mobility",
+     cluster: "Mobility & Smart Cities",
+     partner: "Dr. Michael Hüllenkrämer, K4-Stabsstelle SDU & Gloria Karcher, Stabsstelle Nachhaltigkeit",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Campus navigation presents an opportunity to enhance orientation, accessibility, and convenience through real-time, multilingual digital guidance.",
+     solution: "A centralised TUB-Navi app combining indoor and outdoor maps with live updates on accessibility, bike parking and EV charging.",
+     development: "Surveyed users to confirm demand, mapped stakeholders, analysed competitor navigation apps, and designed a static prototype.",
+     stage: 1,
+     further: "Building a functional Figma prototype, securing data partnerships, and launching a pilot tied to a gamified mobility challenge.",
+     link: "Sustain.MOBILITY.pdf",
+     linkLabel: "View project report"
+   },
+   {
+     id: "energy",
+     title: "Sustain.Energy",
+     cluster: "Climate & Energy",
+     partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Greater visibility into campus energy use and room occupancy offers opportunities to optimise heating, lighting, and overall building efficiency.",
+     solution: "An energy-visualisation dashboard paired with an open-source IoT system that uses ceiling radar to match HVAC use to real attendance.",
+     development: "Built a monthly energy dashboard prototype for the library and mapped a zero-e-waste hardware integration matrix.",
+     stage: 0,
+     further: "Expanding smart-meter coverage, building an automated data pipeline, and piloting containerised local servers.",
+     links: [
+       {
+         href: "https://claude.ai/code/artifact/2b0fee3b-88cc-4840-9821-864fc1080f05",
+         label: "Open Energy Education Map"
+       },
+       {
+         href: "https://claude.ai/code/artifact/8ce11341-2564-4c68-88dc-52ccd7834474",
+         label: "Open Monthly Energy Dashboard"
+       },
+       {
+         href: "Sustain.ENERGY_library.pdf",
+         label: "View project report for ZB Energy Reduction"
+       }
+     ]
+   },
+   {
+     id: "partx",
+     title: "Sustain.PartX",
+     cluster: "People, Society & Wellbeing",
+     partner: "Bengisu Berispek, Sustain.ALL Transformation Hub",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "TU Berlin's diverse sustainability initiatives provide an opportunity to make participation more accessible, engaging, and rewarding for students.",
+     solution: "A gamified platform that aggregates green opportunities and offers easier access and tangible rewards to motivate behavioural change.",
+     development: "Ran stakeholder mapping, completed a student barrier survey, and designed a static web interface.",
+     stage: 1,
+     further: "Translating the static interface into a working platform prototype that directly addresses the barriers students named.",
+     link: "Sustain.PARTX.pdf",
+     linkLabel: "View project report"
+   },
+   {
+     id: "food",
+     title: "Sustain.Food",
+     cluster: "People, Society & Wellbeing",
+     partner: null,
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "With food systems contributing roughly 34% of global greenhouse-gas emissions, student meal choices present a meaningful opportunity to encourage more sustainable eating habits.",
+     solution: "EcoLens — a gamified mobile app that turns official food data into sustainability points, rewarding eco-friendly cafeteria meals via leaderboards.",
+     development: "Built a live interactive demo, formulated the scoring logic, and ran a technical API and cost-feasibility analysis.",
+     stage: 2,
+     further: "Securing data partnerships with Studierendenwerk, obtaining pilot funding, and deploying the app for student use.",
+     link: "https://www.youtube.com/watch?app=desktop&v=VjhzTcMpEts&ra=m",
+     linkLabel: "Watch video demo"
+   },
+   {
+     id: "hub",
+     title: "Sustain.Hub",
+     cluster: "Culture & Transformation",
+     partner: "Dr. Michael Wilmes, Präsidialamt",
+     semesters: ["Summer Semester 2026"],
+     continuingThisSemester: null,
+     challenge: "Underused cafeteria spaces and existing furniture offer an opportunity to create flexible, resource-efficient environments for interdisciplinary student collaboration.",
+     solution: "Turning abandoned cafeterias into circular co-creation hubs by retrofitting existing furniture into modular systems.",
+     development: "Ran site visits, surveyed student needs, researched best practice, and produced a circular design framework.",
+     stage: 0,
+     further: "Building modular furniture prototypes, hosting a student makeathon, and running a life-cycle-assessment comparison.",
+     link: "Sustain.HUB.html",
+     linkLabel: "View project report"
+   }
+ ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  const cardGrid = document.getElementById("cardGrid");
-  const filterRow = document.getElementById("filterRow");
-  const clusterGrid = document.getElementById("clusterGrid");
-  const modalOverlay = document.getElementById("modalOverlay");
-  const modalContent = document.getElementById("modalContent");
+ // ============================================================
+ // MATURITY STEPPER
+ // ============================================================
 
-  // render cards
-  function renderCards(filter){
-    const list = filter && filter !== "all" ? PROJECTS.filter(p => p.cluster === filter) : PROJECTS;
-    cardGrid.innerHTML = list.map(cardHTML).join("");
-    cardGrid.querySelectorAll(".pcard").forEach(card => {
-      card.addEventListener("click", () => openModal(card.dataset.id));
-      card.addEventListener("keypress", (e) => { if(e.key === "Enter") openModal(card.dataset.id); });
-    });
-  }
-  renderCards("all");
+ function stepperHTML(stageIndex){
+   const segs = STAGES.map((s, i) =>
+     `<span class="stepper-seg ${i <= stageIndex ? 'done' : ''}"></span>`
+   ).join("");
 
-  // filter buttons (challenges section)
-  filterRow.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterRow.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderCards(btn.dataset.filter);
-      clusterGrid.querySelectorAll(".cluster-chip").forEach(c => c.classList.remove("active"));
-      const match = clusterGrid.querySelector(`[data-cluster="${btn.dataset.filter}"]`);
-      if(match) match.classList.add("active");
-    });
-  });
+   return `
+     <div class="stepper">
+       <div class="stepper-track">${segs}</div>
+       <div class="stepper-label">
+         ${STAGES[stageIndex]} <span>· Current Maturity</span>
+       </div>
+     </div>`;
+ }
 
-  // cluster chips scroll to + filter challenges
-  clusterGrid.querySelectorAll(".cluster-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      const cluster = chip.dataset.cluster;
-      clusterGrid.querySelectorAll(".cluster-chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      filterRow.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      const match = filterRow.querySelector(`[data-filter="${cluster}"]`);
-      if(match) match.classList.add("active");
-      renderCards(cluster);
-      document.getElementById("challenges").scrollIntoView({ behavior: "smooth" });
-    });
-  });
+ // ============================================================
+ // SEMESTER DISPLAY
+ // ============================================================
 
-  // modal
-  function openModal(id){
-    const p = PROJECTS.find(x => x.id === id);
-    if(!p) return;
-    modalContent.innerHTML = modalHTML(p);
-    modalOverlay.classList.add("open");
-    document.body.style.overflow = "hidden";
-    document.getElementById("modalClose").addEventListener("click", closeModal);
-  }
-  function closeModal(){
-    modalOverlay.classList.remove("open");
-    document.body.style.overflow = "";
-  }
-  modalOverlay.addEventListener("click", (e) => { if(e.target === modalOverlay) closeModal(); });
-  document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
+ function semesterHTML(p){
+   const semesters = Array.isArray(p.semesters)
+     ? p.semesters.filter(Boolean)
+     : [];
 
-  // mobile nav
-  const nav = document.getElementById("nav");
-  const navToggle = document.getElementById("navToggle");
-  navToggle.addEventListener("click", () => nav.classList.toggle("open"));
-  nav.querySelectorAll(".nav-links a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+   return `
+     <div class="pcard-semester">
+       <span class="pcard-semester-title">
+         ${semesters.length === 1 ? "Semester" : "Semesters"}
+       </span>
+       <span class="pcard-semester-value">
+         ${semesters.length ? semesters.join(" · ") : "To be confirmed"}
+       </span>
+       ${p.continuingThisSemester === true
+         ? `<span class="pcard-continuing">Continuing this semester</span>`
+         : ""}
+     </div>`;
+ }
 
-  // form submission — sends data to a Google Apps Script web app,
-  // which appends a row to a connected Google Sheet. See README.md.
-  const form = document.getElementById("proposeForm");
-  const success = document.getElementById("formSuccess");
-  if(form){
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+ // ============================================================
+ // CHALLENGE CARDS
+ // ============================================================
 
-      // honeypot check — real users never fill this hidden field
-      if(form.querySelector('[name="bot-field"]').value){
-        return;
-      }
+ function cardHTML(p){
+   return `
+     <article class="pcard" data-cluster="${p.cluster}" data-id="${p.id}" tabindex="0">
+       <div class="pcard-top">
+         <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
+         <span class="origin">${STAGES[p.stage]}</span>
+       </div>
 
-      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
-        alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
-        return;
-      }
+       <h3>${p.title}</h3>
 
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalLabel = submitBtn.textContent;
-      submitBtn.textContent = "Sending…";
-      submitBtn.disabled = true;
+       <p class="pcard-challenge">${p.challenge}</p>
 
-      try{
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors", // Apps Script web apps don't return CORS headers;
-                            // the request still lands and doPost() still runs.
-          body: new FormData(form)
-        });
-        form.style.display = "none";
-        success.classList.add("show");
-      }catch(err){
-        alert("Something went wrong sending that — please try again in a moment.");
-        submitBtn.textContent = originalLabel;
-        submitBtn.disabled = false;
-      }
-    });
-  }
+       ${stepperHTML(p.stage)}
 
-  // RSVP form (events section) — same Google Sheet endpoint, distinguished
-  // by the hidden formType=rsvp field so Apps Script can route it separately.
-  const rsvpForm = document.getElementById("rsvpForm");
-  const rsvpSuccess = document.getElementById("rsvpSuccess");
-  if(rsvpForm){
-    rsvpForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
+       <p class="pcard-partner">
+         ${p.partner
+           ? `Partner: <b>${p.partner}</b>`
+           : `<b>Student Initiative</b>`}
+       </p>
 
-      if(rsvpForm.querySelector('[name="bot-field"]').value){
-        return;
-      }
+       ${semesterHTML(p)}
 
-      if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
-        alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
-        return;
-      }
+       <span class="pcard-more">Read the full story →</span>
+     </article>`;
+ }
 
-      const submitBtn = rsvpForm.querySelector('button[type="submit"]');
-      const originalLabel = submitBtn.textContent;
-      submitBtn.textContent = "Sending…";
-      submitBtn.disabled = true;
+ // ============================================================
+ // PROJECT DETAIL POPUP
+ // ============================================================
 
-      try{
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body: new FormData(rsvpForm)
-        });
-        rsvpForm.style.display = "none";
-        rsvpSuccess.classList.add("show");
-      }catch(err){
-        alert("Something went wrong sending that — please try again in a moment.");
-        submitBtn.textContent = originalLabel;
-        submitBtn.disabled = false;
-      }
-    });
-  }
-});
+ function modalHTML(p){
+   return `
+     <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
 
-// ============================================================
-// Model diagram arrows — drawn dynamically from actual measured
-// element positions, not fixed coordinates. This keeps the lines
-// pixel-accurate at every screen width, since it reads real layout
-// instead of assuming a fixed proportion between the hub and cards.
-// ============================================================
-function drawModelArrows(){
-  const svg = document.getElementById("modelArrows");
-  if(!svg) return;
-  if(getComputedStyle(svg).display === "none") return; // hidden on mobile — nothing to draw
+     <span class="tag ${tagClassFor(p.cluster)}">${p.cluster}</span>
 
-  const container = document.querySelector(".model-diagram");
-  const hub = document.querySelector(".model-hub");
-  if(!container || !hub) return;
+     <h3>${p.title}</h3>
 
-  const targets = {
-    academic:   document.querySelector(".model-card--academic"),
-    challenges: document.querySelector(".model-card--challenges"),
-    cocreation: document.querySelector(".model-card--cocreation"),
-    experiment: document.querySelector(".model-card--experiment"),
-    transfer:   document.querySelector(".model-card--transfer")
-  };
+     ${p.partner
+       ? `<p class="pcard-partner">Partner: <b>${p.partner}</b></p>`
+       : `<p class="pcard-partner"><b>Student Initiative</b></p>`}
 
-  const cRect = container.getBoundingClientRect();
-  if(cRect.width === 0 || cRect.height === 0) return;
-  svg.setAttribute("viewBox", `0 0 ${cRect.width} ${cRect.height}`);
+     ${semesterHTML(p)}
 
-  const hubRect = hub.getBoundingClientRect();
-  const hubCenter = {
-    x: hubRect.left + hubRect.width / 2 - cRect.left,
-    y: hubRect.top + hubRect.height / 2 - cRect.top
-  };
-  const hubR = hubRect.width / 2;
+     ${stepperHTML(p.stage)}
 
-  svg.querySelectorAll(".arrow-line").forEach(path => {
-    const el = targets[path.dataset.to];
-    if(!el) return;
-    const r = el.getBoundingClientRect();
+     <div class="modal-row">
+       <h5>The challenge</h5>
+       <p>${p.challenge}</p>
+     </div>
 
-    let point;
-    if(path.dataset.to === "transfer"){
-      point = { x: r.left + r.width / 2 - cRect.left, y: r.top - cRect.top };
-    } else {
-      const cardCenterX = r.left + r.width / 2;
-      const isLeftSide = cardCenterX < hubRect.left + hubRect.width / 2;
-      point = {
-        x: (isLeftSide ? r.right : r.left) - cRect.left,
-        y: r.top + r.height / 2 - cRect.top
-      };
-    }
+     <div class="modal-row">
+       <h5>The proposed solution</h5>
+       <p>${p.solution}</p>
+     </div>
 
-    const dx = point.x - hubCenter.x;
-    const dy = point.y - hubCenter.y;
-    const dist = Math.hypot(dx, dy) || 1;
-    const ux = dx / dist, uy = dy / dist;
-    const start = { x: hubCenter.x + ux * hubR, y: hubCenter.y + uy * hubR };
+     <div class="modal-row">
+       <h5>Progress so far</h5>
+       <p>${p.development}</p>
+     </div>
 
-    path.setAttribute("d", `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${point.x.toFixed(1)} ${point.y.toFixed(1)}`);
-  });
-}
+     <div class="modal-row">
+       <h5>Next steps</h5>
+       <p>${p.further}</p>
+     </div>
 
-window.addEventListener("load", drawModelArrows);
-document.addEventListener("DOMContentLoaded", () => setTimeout(drawModelArrows, 50));
-let modelArrowsResizeTimer;
-window.addEventListener("resize", () => {
-  clearTimeout(modelArrowsResizeTimer);
-  modelArrowsResizeTimer = setTimeout(drawModelArrows, 150);
-});
+     ${p.link
+       ? `<a class="modal-link" href="${p.link}" target="_blank" rel="noopener">${p.linkLabel} ↗</a>`
+       : ""}
+   `;
+ }
+
+ // ============================================================
+ // PAGE INTERACTIVITY
+ // ============================================================
+
+ document.addEventListener("DOMContentLoaded", () => {
+
+   const cardGrid = document.getElementById("cardGrid");
+   const filterRow = document.getElementById("filterRow");
+   const clusterGrid = document.getElementById("clusterGrid");
+   const modalOverlay = document.getElementById("modalOverlay");
+   const modalContent = document.getElementById("modalContent");
+
+   // Partner challenges first; student initiatives second.
+   // Ordering also applies when filtering by cluster.
+   function renderCards(filter){
+     const list = (
+       filter && filter !== "all"
+         ? PROJECTS.filter(p => p.cluster === filter)
+         : [...PROJECTS]
+     ).sort(
+       (a, b) => Number(Boolean(b.partner)) - Number(Boolean(a.partner))
+     );
+
+     cardGrid.innerHTML = list.map(cardHTML).join("");
+
+     cardGrid.querySelectorAll(".pcard").forEach(card => {
+       card.addEventListener("click", () => openModal(card.dataset.id));
+       card.addEventListener("keypress", (e) => {
+         if(e.key === "Enter") openModal(card.dataset.id);
+       });
+     });
+   }
+
+   renderCards("all");
+
+   // Portfolio filter buttons
+   filterRow.querySelectorAll(".filter-btn").forEach(btn => {
+     btn.addEventListener("click", () => {
+       filterRow.querySelectorAll(".filter-btn").forEach(b =>
+         b.classList.remove("active")
+       );
+
+       btn.classList.add("active");
+
+       renderCards(btn.dataset.filter);
+
+       clusterGrid.querySelectorAll(".cluster-chip").forEach(c =>
+         c.classList.remove("active")
+       );
+
+       const match = clusterGrid.querySelector(
+         `[data-cluster="${btn.dataset.filter}"]`
+       );
+
+       if(match) match.classList.add("active");
+     });
+   });
+
+   // Cluster buttons
+   clusterGrid.querySelectorAll(".cluster-chip").forEach(chip => {
+     chip.addEventListener("click", () => {
+       const cluster = chip.dataset.cluster;
+
+       clusterGrid.querySelectorAll(".cluster-chip").forEach(c =>
+         c.classList.remove("active")
+       );
+
+       chip.classList.add("active");
+
+       filterRow.querySelectorAll(".filter-btn").forEach(b =>
+         b.classList.remove("active")
+       );
+
+       const match = filterRow.querySelector(
+         `[data-filter="${cluster}"]`
+       );
+
+       if(match) match.classList.add("active");
+
+       renderCards(cluster);
+
+       document.getElementById("challenges").scrollIntoView({
+         behavior: "smooth"
+       });
+     });
+   });
+
+   // Project details popup
+   function openModal(id){
+     const p = PROJECTS.find(x => x.id === id);
+     if(!p) return;
+
+     modalContent.innerHTML = modalHTML(p);
+     modalOverlay.classList.add("open");
+     document.body.style.overflow = "hidden";
+
+     document.getElementById("modalClose").addEventListener(
+       "click", closeModal
+     );
+   }
+
+   function closeModal(){
+     modalOverlay.classList.remove("open");
+     document.body.style.overflow = "";
+   }
+
+   modalOverlay.addEventListener("click", e => {
+     if(e.target === modalOverlay) closeModal();
+   });
+
+   document.addEventListener("keydown", e => {
+     if(e.key === "Escape") closeModal();
+   });
+
+   // Mobile navigation
+   const nav = document.getElementById("nav");
+   const navToggle = document.getElementById("navToggle");
+
+   navToggle.addEventListener("click", () =>
+     nav.classList.toggle("open")
+   );
+
+   nav.querySelectorAll(".nav-links a").forEach(a =>
+     a.addEventListener("click", () =>
+       nav.classList.remove("open")
+     )
+   );
+
+   // ==========================================================
+   // CHALLENGE PROPOSAL FORM
+   // ==========================================================
+
+   const form = document.getElementById("proposeForm");
+   const success = document.getElementById("formSuccess");
+
+   if(form){
+     form.addEventListener("submit", async e => {
+       e.preventDefault();
+
+       if(form.querySelector('[name="bot-field"]').value){
+         return;
+       }
+
+       if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
+         alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
+         return;
+       }
+
+       const submitBtn = form.querySelector('button[type="submit"]');
+       const originalLabel = submitBtn.textContent;
+
+       submitBtn.textContent = "Sending…";
+       submitBtn.disabled = true;
+
+       try{
+         await fetch(GOOGLE_SCRIPT_URL, {
+           method: "POST",
+           mode: "no-cors",
+           body: new FormData(form)
+         });
+
+         form.style.display = "none";
+         success.classList.add("show");
+       }catch(err){
+         alert("Something went wrong sending that — please try again in a moment.");
+         submitBtn.textContent = originalLabel;
+         submitBtn.disabled = false;
+       }
+     });
+   }
+
+   // ==========================================================
+   // EVENT RSVP FORM
+   // ==========================================================
+
+   const rsvpForm = document.getElementById("rsvpForm");
+   const rsvpSuccess = document.getElementById("rsvpSuccess");
+
+   if(rsvpForm){
+     rsvpForm.addEventListener("submit", async e => {
+       e.preventDefault();
+
+       if(rsvpForm.querySelector('[name="bot-field"]').value){
+         return;
+       }
+
+       if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith("PASTE_")){
+         alert("Form isn't connected yet — add your Google Apps Script URL to GOOGLE_SCRIPT_URL in script.js.");
+         return;
+       }
+
+       const submitBtn = rsvpForm.querySelector('button[type="submit"]');
+       const originalLabel = submitBtn.textContent;
+
+       submitBtn.textContent = "Sending…";
+       submitBtn.disabled = true;
+
+       try{
+         await fetch(GOOGLE_SCRIPT_URL, {
+           method: "POST",
+           mode: "no-cors",
+           body: new FormData(rsvpForm)
+         });
+
+         rsvpForm.style.display = "none";
+         rsvpSuccess.classList.add("show");
+       }catch(err){
+         alert("Something went wrong sending that — please try again in a moment.");
+         submitBtn.textContent = originalLabel;
+         submitBtn.disabled = false;
+       }
+     });
+   }
+ });
+
+ // ============================================================
+ // MODEL DIAGRAM ARROWS
+ // ============================================================
+
+ function drawModelArrows(){
+   const svg = document.getElementById("modelArrows");
+   if(!svg) return;
+
+   if(getComputedStyle(svg).display === "none") return;
+
+   const container = document.querySelector(".model-diagram");
+   const hub = document.querySelector(".model-hub");
+
+   if(!container || !hub) return;
+
+   const targets = {
+     academic: document.querySelector(".model-card--academic"),
+     challenges: document.querySelector(".model-card--challenges"),
+     cocreation: document.querySelector(".model-card--cocreation"),
+     experiment: document.querySelector(".model-card--experiment"),
+     transfer: document.querySelector(".model-card--transfer")
+   };
+
+   const cRect = container.getBoundingClientRect();
+
+   if(cRect.width === 0 || cRect.height === 0) return;
+
+   svg.setAttribute(
+     "viewBox",
+     `0 0 ${cRect.width} ${cRect.height}`
+   );
+
+   const hubRect = hub.getBoundingClientRect();
+
+   const hubCenter = {
+     x: hubRect.left + hubRect.width / 2 - cRect.left,
+     y: hubRect.top + hubRect.height / 2 - cRect.top
+   };
+
+   const hubR = hubRect.width / 2;
+
+   svg.querySelectorAll(".arrow-line").forEach(path => {
+     const el = targets[path.dataset.to];
+     if(!el) return;
+
+     const r = el.getBoundingClientRect();
+
+     let point;
+
+     if(path.dataset.to === "transfer"){
+       point = {
+         x: r.left + r.width / 2 - cRect.left,
+         y: r.top - cRect.top
+       };
+     } else {
+       const cardCenterX = r.left + r.width / 2;
+       const isLeftSide =
+         cardCenterX < hubRect.left + hubRect.width / 2;
+
+       point = {
+         x: (isLeftSide ? r.right : r.left) - cRect.left,
+         y: r.top + r.height / 2 - cRect.top
+       };
+     }
+
+     const dx = point.x - hubCenter.x;
+     const dy = point.y - hubCenter.y;
+     const dist = Math.hypot(dx, dy) || 1;
+     const ux = dx / dist;
+     const uy = dy / dist;
+
+     const start = {
+       x: hubCenter.x + ux * hubR,
+       y: hubCenter.y + uy * hubR
+     };
+
+     path.setAttribute(
+       "d",
+       `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${point.x.toFixed(1)} ${point.y.toFixed(1)}`
+     );
+   });
+ }
+
+ window.addEventListener("load", drawModelArrows);
+
+ document.addEventListener("DOMContentLoaded", () =>
+   setTimeout(drawModelArrows, 50)
+ );
+
+ let modelArrowsResizeTimer;
+
+ window.addEventListener("resize", () => {
+   clearTimeout(modelArrowsResizeTimer);
+
+   modelArrowsResizeTimer = setTimeout(
+     drawModelArrows,
+     150
+   );
+ });
