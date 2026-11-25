@@ -952,3 +952,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ---- Events switch ----
    Anything marked class="events-only" is hidden while <body class="events-hidden"> is set. */
 .events-hidden .events-only{ display: none !important; }
+
+/* RSVP EVENT DESCRIPTION */
+
+.event-description {
+  background: var(--white);
+  border-left: 4px solid var(--magenta);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 12px 0 26px;
+}
+
+.event-description h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.event-description p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.event-description span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--magenta-deep);
+}
