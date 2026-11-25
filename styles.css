@@ -953,14 +953,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
    Anything marked class="events-only" is hidden while <body class="events-hidden"> is set. */
 .events-hidden .events-only{ display: none !important; }
 
-/* RSVP EVENT DESCRIPTION */
+/* RSVP EVENT DESCRIPTIONS — outside the registration form */
+
+.event-descriptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
 
 .event-description {
+  display: flex;
+  flex-direction: column;
   background: var(--white);
   border-left: 4px solid var(--magenta);
   border-radius: 10px;
   padding: 18px 20px;
-  margin: 12px 0 26px;
+  margin: 0;
 }
 
 .event-description h4 {
@@ -977,7 +986,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .event-description span {
+  display: block;
+  margin-top: auto;
   font-size: 12px;
   font-weight: 700;
   color: var(--magenta-deep);
+}
+
+@media (max-width: 950px) {
+  .event-descriptions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .event-descriptions { grid-template-columns: 1fr; }
 }
